@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="./styles.css"/>
+</head>
+<body>
+  <div class="header">
+    <div class="about">
+      <div class="about_profile">
+        <div class="about_bio">
+          <div class="about_titles">
+            <img class="profile_pic" src='./assets/ryan.png'/>
+            <h1 class="about_job">Full Stack Software Engineer</h1>
+            <div class="sm_logos">
+              <a href="https://linkedin.com/in/ryanwholey"><img class="sm_logo" id="linkedin" src="./assets/linkedin_white.png" /></a>
+              <a href="https://github.com/ryanwholey"><img class="sm_logo" id="github" src="./assets/github_white.png"  /></a>
+            </div>
+          </div>
+          <div class="about_narrative">
+            <div>
+            This is my narrative. Soo narrative. Lots and lots of narrative. I have a passion for building scallable, performant applications. I love robots. 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="display">
+    <div id="compgun" class="container"></div>
+    <div class="filler"></div>
+    <div id="producer" class="container"></div>
+    <div class="filler"></div>
+    <div id="gotfl" class="container"></div>
+    <div class="filler"></div>
+    <div id="one" class="container"></div>
+  </div>
+
+
+  <script id="app_stats" type="text/x-handlebars-template">
+      <div class="app_stats">
+        <div class="app_head">
+          <div class="app_titles">
+            <h3>{{title}}</h3>
+            <h1>{{job}}</h1>
+          </div>
+        </div>
+        <div class="app_description">
+          {{description}}
+        </div>
+        <div class="app_tech">
+          {{#each tech}}
+            {{{make_image this}}}
+          {{/each}}
+        </div>
+      </div>
+  </script>
+
+  <script id="app_screenshots" type="text/x-handlebars-template">
+    <div class="app_screenshots">
+      <div class="feature_screenshot">
+        <img src={{featured}} />
+      </div>
+      <div class="list_screenshots" onclick="listClick()">
+        {{#each screenshots}}
+          {{{make_image this}}}
+        {{/each}}
+      </div>
+    </div>
+  </script>
+
+  <script id="app-template" type="text/x-handlebars-template">
+    <div class="app">
+      {{> app_stats}}
+      {{> app_screenshots}}
+    </div>
+  </script>
+
+  <script src="./jquery.min.js" type="text/javascript"></script>
+  <script src="./handlebars.min.js" type="text/javascript"></script>
+  <script>
+  
+    var listClick;
+
+    $(function() {
+
+      Handlebars.registerPartial("app_stats", $("#app_stats").html());
+      Handlebars.registerPartial("app_screenshots", $("#app_screenshots").html());
+      Handlebars.registerHelper( 'make_image', function(path) {
+          return '<img src=./assets/' + path + '.png />';
+      });
+
+      var data = {
+        '#compgun': {
+          logo: './assets/compgun_logo.png',
+          title: 'Compgun',
+          job: 'Full Stack Software Engineer',
+          description: 'Sales commisions management software designed to make sales administration easy painless and affordable.',
+          tech: ['react','flux','docker','node','rabbitmq','d3'],
+          featured: './assets/compgun_1.png',
+          screenshots: ['compgun_1', 'compgun_2', 'compgun_3']
+        },
+        '#producer': {
+          logo: './assets/hackreactor_logo.png',
+          title: 'Producer',
+          job: 'Front End Engineer',
+          description: 'Cirriculum scheduling management system to distribute taks and alert events. ',
+          tech: ['angular','redis','node'],
+          featured: './assets/producer_1.png',
+          screenshots: ['producer_1', 'producer_2', 'producer_3']
+        },
+        '#gotfl' : {
+          logo: './assets/got_logo.png',
+          title: 'Game of Thrones Fantasy League',
+          job: 'Full Stack Software Engineer',
+          description: 'A fantasy league inspired by the new upcoming 6th season of Game of Thrones. Draft a team, go head to head against your friends. ',
+          tech: ['react','redux','docker','mysql','socketio','node'],
+          featured: './assets/gotfl_1.png',
+          screenshots: ['gotfl_1', 'gotfl_2', 'gotfl_1']
+        },
+        '#one' : {
+            logo: './assets/one_logo.png',
+            title: 'OneFeed',
+            job: 'Backend Software Engineer',
+            description: 'Social media aggregator. Proof of concept for a single feed compiling your social media profiles into a single feed.',
+            tech: ['angular', 'python', 'flask', 'mysql'],
+            featured: './assets/one_1.png',
+            screenshots: ['one_1', 'one_2', 'one_3']
+          }
+      }
+
+
+      var template = Handlebars.compile($('#app-template').html())
+      
+      for(datum in data){
+        $(datum).append(template(data[datum]));
+      }
+
+      listClick = function() {
+        var group = /assets\/(.*)$/.exec(window.event.target.src);
+        if(!group){return}
+        var img = './assets/' + group[1]
+        var id = '#' + /\/(.*)_/.exec(group[0])[1];
+        $(id).find('.feature_screenshot > img').attr('src',img);
+      };
+
+      $('.sm_logo').on('mouseover', function(){
+        switch(this.id){
+          case 'linkedin':
+            this.src="./assets/linkedin_gray.png";
+            break;
+          case 'github':
+            this.src="./assets/github_gray.png";
+            break;
+          default:
+            break;
+        }
+      })
+      $('.sm_logo').on('mouseout', function(){
+        switch(this.id){
+          case 'linkedin':
+            this.src="./assets/linkedin_white.png";
+            break;
+          case 'github':
+            this.src="./assets/github_white.png";
+            break;
+          default:
+            break;
+        }
+      })
+      $('.about_narrative').on('mouseover', function(){
+        $('.about').addClass('darken');
+      })
+
+      $('.about_narrative').on('mouseout', function(){
+        $('.about').removeClass('darken');
+      })
+
+     
+
+    })
+  </script>
+</body>
+</html>
