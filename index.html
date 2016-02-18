@@ -40,22 +40,30 @@
 
 
   <script id="app_stats" type="text/x-handlebars-template">
-      <div class="app_stats">
-        <div class="app_head">
-          <div class="app_titles">
-            <h3>{{title}}</h3>
-            <h1>{{job}}</h1>
+        <div class="app_stats">
+          <div class="app_head">
+            <div class="app_titles">
+              <a href={{link}}>
+                <h3>{{title}}</h3>
+              </a>
+              <a href={{link}}>
+                <h1>{{job}}</h1>
+              </a>
+            </div>
+          </div>
+          <div class="app_description">
+            <a href={{link}}>
+              {{description}}
+            </a>
+          </div>
+
+          <div class="app_tech">
+            {{#each tech}}
+              {{{make_image this}}}
+            {{/each}}
           </div>
         </div>
-        <div class="app_description">
-          {{description}}
-        </div>
-        <div class="app_tech">
-          {{#each tech}}
-            {{{make_image this}}}
-          {{/each}}
-        </div>
-      </div>
+      
   </script>
 
   <script id="app_screenshots" type="text/x-handlebars-template">
@@ -88,8 +96,11 @@
 
       Handlebars.registerPartial("app_stats", $("#app_stats").html());
       Handlebars.registerPartial("app_screenshots", $("#app_screenshots").html());
-      Handlebars.registerHelper( 'make_image', function(path) {
+      Handlebars.registerHelper("make_image", function(path) {
           return '<img src=./assets/' + path + '.png />';
+      });
+      Handlebars.registerHelper("make_link", function(path) {
+        return '<a href=' + path + '>';
       });
 
       var data = {
@@ -100,7 +111,8 @@
           description: 'Sales commisions management platform designed to make sales administration easy painless and affordable.',
           tech: ['react','flux','docker','node','rabbitmq','d3'],
           featured: './assets/compgun_1.png',
-          screenshots: ['compgun_1', 'compgun_2', 'compgun_3']
+          screenshots: ['compgun_1', 'compgun_2', 'compgun_3'],
+          link: 'http://compgun.com'
         },
         '#producer': {
           logo: './assets/hackreactor_logo.png',
@@ -109,7 +121,8 @@
           description: 'A curriculum management platform, used across 7 of the Hack Reactor Core Software Engineering campuses. ',
           tech: ['angular','redis','node'],
           featured: './assets/producer_1.png',
-          screenshots: ['producer_1', 'producer_2', 'producer_3']
+          screenshots: ['producer_1', 'producer_2', 'producer_3'],
+          link: '#'
         },
         '#gotfl' : {
           logo: './assets/got_logo.png',
@@ -118,7 +131,8 @@
           description: 'Fantasy league inspired by the new upcoming 6th season of Game of Thrones. Draft a team, go head to head against your friends and decide who is the true heir to the iron throne. ',
           tech: ['react','redux','docker','mysql','socketio','node'],
           featured: './assets/got_1.png',
-          screenshots: ['got_1']
+          screenshots: ['got_1'],
+          link: 'https://github.com/fantasyGameOfThrones'
         },
         '#one' : {
             logo: './assets/one_logo.png',
@@ -127,7 +141,8 @@
             description: 'Social media aggregator. Proof of concept for a single feed compiling your social media profiles into a single stream.',
             tech: ['angular', 'python', 'flask', 'mysql'],
             featured: './assets/one_1.png',
-            screenshots: ['one_1', 'one_2', 'one_3']
+            screenshots: ['one_1', 'one_2', 'one_3'],
+            link: 'https://github.com/JauntyManatee/one'
           }
       }
 
