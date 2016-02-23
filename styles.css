@@ -46,10 +46,10 @@ div {
   height: 70vh;
   background-image: 
     linear-gradient(
-      rgba(0,0,0,0.3),
-      rgba(0,0,0,0.3)
+      rgba(230,100,230,0.7),
+      rgba(100,100,100,0.7)
     ),
-    url('./assets/mountain4.jpg');
+    url('./assets/next.jpg');
 
   background-size : cover;
 
