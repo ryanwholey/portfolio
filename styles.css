@@ -182,7 +182,7 @@ div {
   align-items: center;
 }
 
-.feature_screenshot > img{
+.feature_screenshot > a > img{
   width: 100%;
   height: auto;
 }
