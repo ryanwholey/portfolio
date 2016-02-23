@@ -59,7 +59,7 @@
 
           <div class="app_tech">
             {{#each tech}}
-              {{{make_image this}}}
+              {{{make_tech_thumb this}}}
             {{/each}}
           </div>
         </div>
@@ -99,6 +99,9 @@
       Handlebars.registerHelper("make_image", function(path) {
           return '<img src=./assets/' + path + '.png />';
       });
+      Handlebars.registerHelper("make_tech_thumb", function(path) {
+        return '<img title=' + path + ' src=./assets/' + path + '.png />';
+      });
       Handlebars.registerHelper("make_link", function(path) {
         return '<a href=' + path + '>';
       });
@@ -119,10 +122,10 @@
           title: 'Producer',
           job: 'Front End Engineer',
           description: 'A curriculum management platform, used across 7 of the Hack Reactor Core Software Engineering campuses. ',
-          tech: ['angular','redis','node'],
+          tech: ['angular','levelDB','node','s3'],
           featured: './assets/producer_1.png',
           screenshots: ['producer_1', 'producer_2', 'producer_3'],
-          link: '#'
+          link: 'https://github.com/reactorcore/app.producer'
         },
         '#gotfl' : {
           logo: './assets/got_logo.png',
